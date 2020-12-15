@@ -5,15 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/webdevhayes/laravel-ticket-tailor-wrapper.svg?style=flat-square)](https://packagist.org/packages/webdevhayes/laravel-ticket-tailor-wrapper)
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-laravel-ticket-tailor-wrapper-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-laravel-ticket-tailor-wrapper-laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This is a laravel wrapper for [Ticket Tailor](https://tickettailor.com/). This wrapper allows you to access your Ticket Tailor data through their Apis.
 
 ## Installation
 
@@ -25,11 +17,6 @@ composer require webdevhayes/laravel-ticket-tailor-wrapper
 
 You can publish and run the migrations with:
 
-```bash
-php artisan vendor:publish --provider="Webdevhayes\LaravelTicketTailorWrapper\LaravelTicketTailorWrapperServiceProvider" --tag="migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 ```bash
 php artisan vendor:publish --provider="Webdevhayes\LaravelTicketTailorWrapper\LaravelTicketTailorWrapperServiceProvider" --tag="config"
@@ -39,14 +26,37 @@ This is the contents of the published config file:
 
 ```php
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ticket Tailor Api Base Url
+    |--------------------------------------------------------------------------
+    |
+    | This value is the base url for the api calls.
+    |
+    */
+
+    "base_url" => env('TT_BASE_URL', 'https://api.tickettailor.com/v1'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ticket Tailor Api Key
+    |--------------------------------------------------------------------------
+    |
+    | This value is the api key for ticket tailor. This value is used when the
+    | api is called.
+    |
+    */
+    "api_key" => env('TT_API_KEY', ''),
+
 ];
 ```
 
 ## Usage
 
 ```php
-$laravel-ticket-tailor-wrapper = new Webdevhayes\LaravelTicketTailorWrapper();
-echo $laravel-ticket-tailor-wrapper->echoPhrase('Hello, Webdevhayes!');
+$ticketTailor = new Webdevhayes\LaravelTicketTailorWrapper();
+dd($ticketTailor->auth()->getAllEvents());
 ```
 
 ## Testing
@@ -70,7 +80,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [James Hayes](https://github.com/WebDevHayes)
-- [All Contributors](../../contributors)
+- [Spatie Laravel Package Skeleton](https://github.com/spatie/package-skeleton-laravel)
 
 ## License
 
