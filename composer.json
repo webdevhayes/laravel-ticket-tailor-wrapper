@@ -1,0 +1,58 @@
+{
+    "name": "webdevhayes/laravel-ticket-tailor-wrapper",
+    "description": "Laravel wrapper for ticket tailor.",
+    "keywords": [
+        "webdevhayes",
+        "laravel-ticket-tailor-wrapper"
+    ],
+    "homepage": "https://github.com/webdevhayes/laravel-ticket-tailor-wrapper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Hayes",
+            "email": "hayesj89@hotmail.co.uk",
+            "homepage": "https://wptechgroup.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/contracts": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webdevhayes\\LaravelTicketTailorWrapper\\": "src",
+            "Webdevhayes\\LaravelTicketTailorWrapper\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webdevhayes\\LaravelTicketTailorWrapper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webdevhayes\\LaravelTicketTailorWrapper\\LaravelTicketTailorWrapperServiceProvider"
+            ],
+            "aliases": {
+                "LaravelTicketTailorWrapper": "Webdevhayes\\LaravelTicketTailorWrapper\\LaravelTicketTailorWrapperFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "funding": []
+}
