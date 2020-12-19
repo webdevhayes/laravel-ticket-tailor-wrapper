@@ -1,11 +1,6 @@
 # Laravel wrapper for ticket tailor.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/webdevhayes/laravel-ticket-tailor-wrapper.svg?style=flat-square)](https://packagist.org/packages/webdevhayes/laravel-ticket-tailor-wrapper)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/webdevhayes/laravel-ticket-tailor-wrapper/run-tests?label=tests)](https://github.com/webdevhayes/laravel-ticket-tailor-wrapper/actions?query=workflow%3ATests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/webdevhayes/laravel-ticket-tailor-wrapper.svg?style=flat-square)](https://packagist.org/packages/webdevhayes/laravel-ticket-tailor-wrapper)
-
-
-This is a laravel wrapper for [Ticket Tailor](https://tickettailor.com/). This wrapper allows you to access your Ticket Tailor data through their Apis.
+This is a laravel wrapper for [Ticket Tailor](https://tickettailor.com/). This wrapper allows you to access your Ticket Tailor data through their [Apis](https://developers.tickettailor.com/#ticket-tailor-api).
 
 ## Installation
 
@@ -14,8 +9,6 @@ You can install the package via composer:
 ```bash
 composer require webdevhayes/laravel-ticket-tailor-wrapper
 ```
-
-You can publish and run the migrations with:
 
 You can publish the config file with:
 ```bash
@@ -47,6 +40,7 @@ return [
     | api is called.
     |
     */
+
     "api_key" => env('TT_API_KEY', ''),
 
 ];
@@ -55,27 +49,16 @@ return [
 ## Usage
 
 ```php
-$ticketTailor = new Webdevhayes\LaravelTicketTailorWrapper();
+$ticketTailor = new Webdevhayes\LaravelTicketTailorWrapper( config('ticket-tailor-wrapper.api_key'), config('ticket-tailor-wrapper.api_key') );
 dd($ticketTailor->auth()->getAllEvents());
 ```
 
-## Testing
-
-```bash
-composer test
-```
+## TODO/POSSIBLE FEATURES
+* Add tests
 
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
