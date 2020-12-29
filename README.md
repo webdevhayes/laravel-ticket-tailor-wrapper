@@ -49,7 +49,7 @@ return [
 ## Usage
 
 ```php
-$ticketTailor = new Webdevhayes\LaravelTicketTailorWrapper( config('ticket-tailor-wrapper.api_key'), config('ticket-tailor-wrapper.api_key') );
+$ticketTailor = new Webdevhayes\LaravelTicketTailorWrapper( config('ticket-tailor-wrapper.api_key'), config('ticket-tailor-wrapper.base_url') );
 dd($ticketTailor->auth()->getAllEvents());
 ```
 
