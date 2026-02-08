@@ -7,10 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class LaravelTicketTailorWrapper
 {
-    private string $apiKey;
-
-    public PendingRequest $client;
-    private string $baseUrl;
+    protected PendingRequest $client;
 
     /**
      * @param string $apiKey
@@ -18,100 +15,99 @@ class LaravelTicketTailorWrapper
      */
     public function __construct(string $apiKey, string $baseUrl)
     {
-        $this->apiKey = $apiKey;
-        $this->baseUrl = $baseUrl;
+        $this->client = Http::withBasicAuth($apiKey, '')
+            ->baseUrl($baseUrl)
+            ->acceptJson();
     }
 
     /**
+     * @deprecated Authentication is now handled automatically in the constructor.
      * @return $this
      */
     public function auth()
     {
-        $this->client = Http::withBasicAuth( $this->apiKey, '');
         return $this;
     }
 
     /**
-     *
      * Get all issued tickets
      * https://developers.tickettailor.com/#list-all-issued-tickets
      *
      * @param array $params
-     * @return mixed
+     * @return array
      */
-    public function getAllIssuedTickets(array $params = []) : array
+    public function getAllIssuedTickets(array $params = []): array
     {
-        $response = $this->client->get( $this->baseUrl . '/issued_tickets', $params);
-        return $response->json();
+        return $this->client->get('/issued_tickets', $params)->throw()->json();
     }
 
     /**
-     *
      * Get single issued ticket
      * https://developers.tickettailor.com/#retrieve-an-issued-ticket
      *
      * @param string $issuedTickedId
-     * @return mixed
+     * @return array
      */
-    public function getSingleIssuedTicket(string $issuedTickedId) : array
+    public function getSingleIssuedTicket(string $issuedTickedId): array
     {
-        $response = $this->client->get( $this->baseUrl . '/issued_tickets/it_'. $issuedTickedId );
-        return $response->json();
+        return $this->client->get('/issued_tickets/' . $issuedTickedId)->throw()->json();
     }
 
     /**
-     *
      * Get all events
      * https://developers.tickettailor.com/#list-all-events
      *
      * @param array $params
-     * @return mixed
+     * @return array
      */
-    public function getAllEvents(array $params = []) : array
+    public function getAllEvents(array $params = []): array
     {
-        $response = $this->client->get( $this->baseUrl . '/events', $params);
-        return $response->json();
+        return $this->client->get('/events', $params)->throw()->json();
     }
 
     /**
-     *
      * Get single event
      * https://developers.tickettailor.com/?php#retrieve-an-event
      *
      * @param string $eventId
-     * @return mixed
+     * @return array
      */
-    public function getSingleEvent(string $eventId) : array
+    public function getSingleEvent(string $eventId): array
     {
-        $response = $this->client->get( $this->baseUrl . '/events/ev_'. $eventId );
-        return $response->json();
+        return $this->client->get('/events/' . $eventId)->throw()->json();
     }
 
     /**
-     *
      * Get all orders
      * https://developers.tickettailor.com/?php#list-all-orders
      *
      * @param array $params
-     * @return mixed
+     * @return array
      */
-    public function getAllOrders(array $params = []) : array
+    public function getAllOrders(array $params = []): array
     {
-        $response = $this->client->get( $this->baseUrl . '/orders/', $params);
-        return $response->json();
+        return $this->client->get('/orders', $params)->throw()->json();
     }
 
     /**
-     *
      * Get single order
      * https://developers.tickettailor.com/?php#retrieve-an-order
      *
      * @param string $orderId
-     * @return mixed
+     * @return array
      */
-    public function getSingleOrder(string $orderId)
+    public function getSingleOrder(string $orderId): array
     {
-        $response = $this->client->get( $this->baseUrl . '/orders/or_'. $orderId );
-        return $response->json();
+        return $this->client->get('/orders/' . $orderId)->throw()->json();
+    }
+
+    /**
+     * Get the underlying Http client instance.
+     *
+     * @return PendingRequest
+     */
+    public function getClient(): PendingRequest
+    {
+        return $this->client;
     }
 }
